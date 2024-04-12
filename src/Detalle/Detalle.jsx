@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useQuery } from "@tanstack/react-query"
 
 export const Detalle = ({ urlDetalle }) => {
 
+  
   const [datosPokemon, setDatosPokemon] = useState({});
   const [datosPokemonEvolucion, setDatosPokemonEvolucion] = useState({});
   const [datosPokemonCompleto, setDatosPokemonCompleto] = useState({});
   const [urlPokemonEvolucion, setUrlPokemonEvolucion] = useState("");
   const [nombrePokemon, setNombrePokemon] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
+  // const [loading, setLoading] = useState(false);
+  
 
   useEffect(() => {
     detallePokemon();
@@ -21,8 +23,10 @@ export const Detalle = ({ urlDetalle }) => {
     }
   }, [datosPokemon]);
 
+
+
   async function detallePokemon() {
-    setLoading(true)
+    // setLoading(true)
     try {
       const response = await fetch(urlDetalle); //Espera a llegar a la url
       if (!response.ok) {
@@ -35,9 +39,22 @@ export const Detalle = ({ urlDetalle }) => {
     } catch (error) {
       console.error('Error al obtener los datos:', error);
     }finally{
-      setLoading(false)
+      // setLoading(false)
     }
   }
+
+
+  //Necesita dos paramtros, la Key(Nombre que le quieras dar) y el Value
+  //Lo que hay entre {} son los datos que nos va devolver
+  const { isLoading, isError, data } = useQuery(
+    // -> La Key es una manera de recuperar la informacion desde cualquier sitio ya que el estado es global
+    {
+    queryKey: ['otroPokemon'],
+    // -> El segundo parametro es para decirle como debe de recuperar la ID y en este caso es haciendo el fetch del detalle pokemon
+    queryFn: async () => await  detallePokemon()
+    }
+  )
+
 
   async function detalleEvolucion() {
     try {
@@ -51,6 +68,8 @@ export const Detalle = ({ urlDetalle }) => {
       console.error('Error al obtener los datos:', error);
     }
   }
+
+
 
   async function detallePokemonCompleto() {
     try {
@@ -72,8 +91,8 @@ export const Detalle = ({ urlDetalle }) => {
       {console.log(datosPokemonEvolucion)}
       {console.log(datosPokemonCompleto)}
 
-      {loading && <p>Cargando...</p>}
-      {datosPokemonCompleto.types && datosPokemonCompleto.types.length > 0 && !loading &&(
+      
+      {datosPokemonCompleto.types && datosPokemonCompleto.types.length > 0 &&(
         <div>
           <h3>Nº #{datosPokemon.id}</h3>
           <img src={datosPokemonCompleto.sprites.front_default } />  
