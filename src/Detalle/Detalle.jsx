@@ -1,107 +1,92 @@
 import { useEffect, useState } from 'react'
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
-export const Detalle = ({ urlDetalle }) => {
+export const Detalle = ({ namePokemon, urlDetalle }) => {
 
-  
-  const [datosPokemon, setDatosPokemon] = useState({});
-  const [datosPokemonEvolucion, setDatosPokemonEvolucion] = useState({});
-  const [datosPokemonCompleto, setDatosPokemonCompleto] = useState({});
-  const [urlPokemonEvolucion, setUrlPokemonEvolucion] = useState("");
-  const [nombrePokemon, setNombrePokemon] = useState("");
-  // const [loading, setLoading] = useState(false);
-  
-
-  useEffect(() => {
-    detallePokemon();
-  }, [urlDetalle]);
-
-  useEffect(() => {
-    if (Object.keys(datosPokemon).length !== 0) {
-      detalleEvolucion();
-      detallePokemonCompleto();
-    }
-  }, [datosPokemon]);
-
-
-
-  async function detallePokemon() {
-    // setLoading(true)
-    try {
-      const response = await fetch(urlDetalle); //Espera a llegar a la url
-      if (!response.ok) {
-        throw new Error('Ocurrió un error al obtener los datos');
-      }
-      const data = await response.json(); // Espera a guardar los datos en JSON
-      setUrlPokemonEvolucion(data.evolution_chain.url);
-      setNombrePokemon(data.name);
-      setDatosPokemon(data);
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-    }finally{
-      // setLoading(false)
-    }
-  }
-
+  const queryClient = useQueryClient();
 
   //Necesita dos paramtros, la Key(Nombre que le quieras dar) y el Value
   //Lo que hay entre {} son los datos que nos va devolver
-  const { isLoading, isError, data } = useQuery(
+  const { isLoading, isError, data: data1, error, refetch: refetch1 } = useQuery(
     // -> La Key es una manera de recuperar la informacion desde cualquier sitio ya que el estado es global
     {
-    queryKey: ['otroPokemon'],
-    // -> El segundo parametro es para decirle como debe de recuperar la ID y en este caso es haciendo el fetch del detalle pokemon
-    queryFn: async () => await  detallePokemon()
+      queryKey: ['info basico', namePokemon],
+      // -> El segundo parametro es para decirle como debe de recuperar la ID y en este caso es haciendo el fetch del detalle pokemon
+      queryFn: async () => await detallePokemon()
     }
   )
 
+  const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["info completo", namePokemon], queryFn: async () => await detallePokemonCompleto() })
+  const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["info evolucion", namePokemon], queryFn: async () => await detalleEvolucion() })
+  // const { data: data4, refetch: refetch4 } = useQuery({ queryKey: ["descripcion", namePokemon], queryFn: async () => await descripcion() })
 
-  async function detalleEvolucion() {
-    try {
-      const response = await fetch(urlPokemonEvolucion);
-      if (!response.ok) {
-        throw new Error('Ocurrió un error al obtener los datos');
-      }
-      const data = await response.json();
-      setDatosPokemonEvolucion(data);
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-    }
+  //Este es el formato de peticion con manejo y retorno de datos para la cache
+  const detallePokemon = async () => {
+    return await fetch(urlDetalle)
+      .then(async res => {
+        if (!res.ok) throw new Error('Error en la petición')
+        const data = await res.json()
+        return await data //Esto es lo que se va a la key del useQuery
+      })
+
   }
 
 
+  const detalleEvolucion = async () => {
+    return await fetch(data1.evolution_chain.url)
+      .then(async res => {
+        if (!res.ok) throw new Error('Error en la petición')
+        const data3 = await res.json()
+        return data3
+      })
 
-  async function detallePokemonCompleto() {
-    try {
-      const apiUrl = "https://pokeapi.co/api/v2/pokemon/" + nombrePokemon;
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error('Ocurrió un error al obtener los datos');
-      }
-      const data = await response.json();
-      setDatosPokemonCompleto(data);
-    } catch (error) {
-      console.error('Error al obtener los datos:', error);
-    }
   }
+
+
+  const detallePokemonCompleto = async () => {
+    return await fetch("https://pokeapi.co/api/v2/pokemon/" + data1.name)
+      .then(async res => {
+        if (!res.ok) throw new Error('Error en la petición')
+        const data2 = await res.json()
+        return await data2
+      })
+  }
+
+  // //Peticion de prueba para pasarle link para resolver dudas, no es util, borrar en el futuro
+  // const descripcion = async () => {
+  //   return await fetch("https://pokeapi.co/api/v2/language/7/")
+  //     .then(async res => {
+  //       if (!res.ok) throw new Error('Error en la petición')
+  //       const data4 = await res.json()
+  //       return await data4
+  //     })
+  // }
 
   return (
     <>
-      {console.log(datosPokemon)}
-      {console.log(datosPokemonEvolucion)}
-      {console.log(datosPokemonCompleto)}
 
-      
-      {datosPokemonCompleto.types && datosPokemonCompleto.types.length > 0 &&(
+      {isLoading && <h3>Cargando...</h3>}
+
+      {data1 && data2 && data3 && !isLoading && (
         <div>
-          <h3>Nº #{datosPokemon.id}</h3>
-          <img src={datosPokemonCompleto.sprites.front_default } />  
-          <h3>Nombre: {datosPokemon.name}</h3>
-          <h3>Tipo: {datosPokemonCompleto.types.map(type => type.type.name).join(", ")}</h3>
-          <h3>Altura: {datosPokemonCompleto.height}</h3>
-          <h3>Descripción: {datosPokemon.flavor_text_entries[50].flavor_text}</h3>
+          <h3>Nº #{data1.id}</h3>
+          <img src={data2.sprites.front_default} />
+          <h3>Nombre: {data1.name.toUpperCase()}</h3>
+          <h3>Tipo: {data2.types.map(type => type.type.name).join(", ")}</h3>
+          <h3>Altura: {data2.height/10+" m"}</h3>
+          <h3>Peso: {data2.weight/10+" Kg"}</h3>
+
+          {/* //Filtro de frases en español y solo de una version, en este caso X porque parece que es donde estan todas las descripciones en español*/}
+          {data1.flavor_text_entries
+            .filter(frases => frases.language.name === "es" && frases.version.name === "x")
+            .map((frase, index) => (
+              <h3 key={index}>Descripción: {frase.flavor_text}</h3>
+            ))
+            }
         </div>
       )}
+
+      {isError && <h3>Ha habido un error...{error.message}</h3>}
     </>
   )
 }

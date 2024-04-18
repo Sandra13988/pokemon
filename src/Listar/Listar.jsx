@@ -1,67 +1,54 @@
 import { useEffect, useState } from 'react'
-
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 export const Listar = ({ handleClickPokemon }) => {
-    const [siguientePagina, setSiguientePagina] = useState("")
-    const [paginaAnterior, setPaginaAnterior] = useState("")
-    const [listaPokemon, setListaPokemon] = useState([])
-    const [url , setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
+  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
+  const [pagina, setPagina] = useState(1)
 
-    useEffect(()=>{
-        listarPokemon()
-    },[url])
+  useEffect(() => {
+    listarPokemon()
+  }, [url])
 
-    const handleClickSiguiente = () =>{
-        setUrl(siguientePagina)
-    }
-
-    const handleClickAtras = () =>{
-        setUrl(paginaAnterior)
-    }
-
-    
-  function listarPokemon() {
-    const apiUrl = url;
-
-   
-    fetch(apiUrl)
-      .then(response => {
-        console.log(response)
-        if (!response.ok) {
-          throw new Error('Ocurrió un error al obtener los datos');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setSiguientePagina(data.next)
-        setPaginaAnterior(data.previous)
-        console.log(data.next)
-        setListaPokemon(data.results)
-        
-      })
-
-      .catch(error => {
-        console.error('Error al obtener los datos:', error);
-      });
+  const handleClickSiguiente = () => {
+    setUrl(data.next)
+    setPagina(pagina + 1)
   }
+
+  const handleClickAtras = () => {
+    setUrl(data.previous)
+    setPagina(pagina - 1)
+  }
+
+
+  const listarPokemon = async () => {
+    return await fetch(url)
+      .then(async res => {
+        if (!res.ok) throw new Error('Ocurrió un error al obtener los datos');
+        const data = await res.json()
+        return await data
+      })
+  }
+
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ['listaPokemon', "pagina " + pagina], queryFn: async () => await listarPokemon() })
+
+  console.log(data)
   return (
     <>
-   
-            <ul>
-                {listaPokemon.map(pokemon => {
-                        return (
-                            <div key={pokemon.name}>
-                            <a  onClick={() => handleClickPokemon(pokemon.url)}>{pokemon.name}</a> 
-                            </div>
-                        )
-                        
-                })}
-                
-            </ul>
-            <button onClick={() => handleClickAtras()}>{"<<<"}</button>
-            <button onClick={() => handleClickSiguiente()}>{">>>"}</button>
+      {isLoading && <h3>Cargando...</h3>}
+      <ul>
+        {data && data.results.map(pokemon => {
+          return (
+            <div key={pokemon.name}>
+              <a onClick={() => handleClickPokemon({ pokemon })}>{pokemon.name}</a>
+            </div>
+          )
+        })}
 
+      </ul>
+      <button onClick={() => handleClickAtras()}>{"<<<"}</button>
+      <button onClick={() => handleClickSiguiente()}>{">>>"}</button>
 
+      {isError && <h3>Ha habido un error con la lista...{error.message}</h3>}
 
     </>
   )
