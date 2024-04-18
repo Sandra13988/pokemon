@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { listar } from '../Queries/lista';
+import { listar } from '../Queries/Pokemon/lista';
 
 export const Listar = ({ handleClickPokemon }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
