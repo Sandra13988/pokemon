@@ -37,7 +37,9 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
       .then(async res => {
         if (!res.ok) throw new Error('Error en la petición')
         const data3 = await res.json()
+        console.log("soy sandra")
         return data3
+
       })
 
   }
