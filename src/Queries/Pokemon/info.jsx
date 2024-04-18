@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 
 
-export async function usePokemonInfoQuery  (namePokemon, urlDetalle)  {
+export function usePokemonInfoQuery  (namePokemon, urlDetalle)  {
   return  useQuery({ queryKey: ["pokemon", "info", namePokemon], queryFn: async () => await fetch(urlDetalle)
-       .then(async res => {
+       .then( res => {
         if (!res.ok) throw new Error('Error en la petición')
-        const data = await res.json()
+        const data =  res.json()
         console.log(data)
-        return await data //Esto es lo que se va a la key del useQuery
+        return  data //Esto es lo que se va a la key del useQuery
        }) })
  }
 
