@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { info } from '../Queries/Pokemon/info';
 import { infoMas } from '../Queries/Pokemon/infoMas';
 import { evolucion } from '../Queries/Pokemon/evolucion';
-import { listar } from '../Queries/lista';
+
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {
 
@@ -22,9 +22,6 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
 
   const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["pokemon", "infoMas", namePokemon], queryFn: async () => await infoMas(data1.name) })
   const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["pokemon", "evolucion", namePokemon], queryFn: async () => await evolucion(data1.evolution_chain.url) })
-
-
-  
 
   return (
     <>
