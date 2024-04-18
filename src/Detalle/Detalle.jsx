@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { info } from '../Queries/Pokemon/info';
+import { infoMas } from '../Queries/Pokemon/infoMas';
+import { evolucion } from '../Queries/Pokemon/evolucion';
+import { listar } from '../Queries/lista';
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {
 
@@ -10,57 +14,17 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
   const { isLoading, isError, data: data1, error, refetch: refetch1 } = useQuery(
     // -> La Key es una manera de recuperar la informacion desde cualquier sitio ya que el estado es global
     {
-      queryKey: ['info basico', namePokemon],
+      queryKey: ["pokemon", "info", namePokemon],
       // -> El segundo parametro es para decirle como debe de recuperar la ID y en este caso es haciendo el fetch del detalle pokemon
-      queryFn: async () => await detallePokemon()
+      queryFn: async () => await info(urlDetalle)
     }
   )
 
-  const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["info completo", namePokemon], queryFn: async () => await detallePokemonCompleto() })
-  const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["info evolucion", namePokemon], queryFn: async () => await detalleEvolucion() })
-  // const { data: data4, refetch: refetch4 } = useQuery({ queryKey: ["descripcion", namePokemon], queryFn: async () => await descripcion() })
-
-  //Este es el formato de peticion con manejo y retorno de datos para la cache
-  const detallePokemon = async () => {
-    return await fetch(urlDetalle)
-      .then(async res => {
-        if (!res.ok) throw new Error('Error en la petición')
-        const data = await res.json()
-        return await data //Esto es lo que se va a la key del useQuery
-      })
-
-  }
+  const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["pokemon", "infoMas", namePokemon], queryFn: async () => await infoMas(data1.name) })
+  const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["pokemon", "evolucion", namePokemon], queryFn: async () => await evolucion(data1.evolution_chain.url) })
 
 
-  const detalleEvolucion = async () => {
-    return await fetch(data1.evolution_chain.url)
-      .then(async res => {
-        if (!res.ok) throw new Error('Error en la petición')
-        const data3 = await res.json()
-        return data3
-      })
-
-  }
-
-
-  const detallePokemonCompleto = async () => {
-    return await fetch("https://pokeapi.co/api/v2/pokemon/" + data1.name)
-      .then(async res => {
-        if (!res.ok) throw new Error('Error en la petición')
-        const data2 = await res.json()
-        return await data2
-      })
-  }
-
-  // //Peticion de prueba para pasarle link para resolver dudas, no es util, borrar en el futuro
-  // const descripcion = async () => {
-  //   return await fetch("https://pokeapi.co/api/v2/language/7/")
-  //     .then(async res => {
-  //       if (!res.ok) throw new Error('Error en la petición')
-  //       const data4 = await res.json()
-  //       return await data4
-  //     })
-  // }
+  
 
   return (
     <>

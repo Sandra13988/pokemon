@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { listar } from '../Queries/lista';
 
 export const Listar = ({ handleClickPokemon }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
   const [pagina, setPagina] = useState(1)
 
   useEffect(() => {
-    listarPokemon()
+    listar(url)
   }, [url])
 
   const handleClickSiguiente = () => {
@@ -20,16 +21,9 @@ export const Listar = ({ handleClickPokemon }) => {
   }
 
 
-  const listarPokemon = async () => {
-    return await fetch(url)
-      .then(async res => {
-        if (!res.ok) throw new Error('Ocurrió un error al obtener los datos');
-        const data = await res.json()
-        return await data
-      })
-  }
+  
 
-  const { data, isLoading, isError, error } = useQuery({ queryKey: ['listaPokemon', "pagina " + pagina], queryFn: async () => await listarPokemon() })
+  const { data, isLoading, isError, error } = useQuery({ queryKey: ['pokemon', "lista", "pagina",  pagina], queryFn: async () => await listar(url) })
 
   console.log(data)
   return (
