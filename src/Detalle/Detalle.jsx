@@ -1,30 +1,32 @@
 import { useEffect, useState } from 'react'
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { info } from '../Queries/Pokemon/info';
-import { infoMas } from '../Queries/Pokemon/infoMas';
-import { evolucion } from '../Queries/Pokemon/evolucion';
-import { listar } from '../Queries/lista';
+
+import { usePokemonInfoQuery } from '../Queries/Pokemon/info';
+import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas';
+import { usePokemonEvolucion } from '../Queries/Pokemon/evolucion';
+
+import { listar } from '../Queries/Pokemon/lista';
+// import { Evoluciones } from './Evoluciones';
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {
 
-  const queryClient = useQueryClient();
-
-  //Necesita dos paramtros, la Key(Nombre que le quieras dar) y el Value
-  //Lo que hay entre {} son los datos que nos va devolver
-  const { isLoading, isError, data: data1, error, refetch: refetch1 } = useQuery(
-    // -> La Key es una manera de recuperar la informacion desde cualquier sitio ya que el estado es global
-    {
-      queryKey: ["pokemon", "info", namePokemon],
-      // -> El segundo parametro es para decirle como debe de recuperar la ID y en este caso es haciendo el fetch del detalle pokemon
-      queryFn: async () => await info(urlDetalle)
-    }
-  )
-
-  const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["pokemon", "infoMas", namePokemon], queryFn: async () => await infoMas(data1.name) })
-  const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["pokemon", "evolucion", namePokemon], queryFn: async () => await evolucion(data1.evolution_chain.url) })
 
 
+ //CREO QUE COGE LOS DATOS TARDE Y NO LOS CONSIGUE PASAR COMO PROP A LA SEGUNDA QUERY
+  const { isLoading, isError, data: data1, error} = usePokemonInfoQuery(namePokemon, urlDetalle)
+  const { data: data2 } = usePokemonInfoMasQuery(data1 && data1.name)
+  const { data: data3 } = usePokemonEvolucion( namePokemon, data1 && data1.evolution_chain.url)
   
+  
+
+  // const url_evolucion = data1.evolution_chain.url
+
+  if(isLoading){
+    return <h3>Cargando...</h3>
+  }
+
+  if (isError){
+    return <h3>Ha habido un error...{error.message}</h3>
+  }
 
   return (
     <>
