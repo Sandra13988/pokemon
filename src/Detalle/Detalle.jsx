@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { info } from '../Queries/Pokemon/info';
 import { infoMas } from '../Queries/Pokemon/infoMas';
 import { evolucion } from '../Queries/Pokemon/evolucion';
-
+import { listar } from '../Queries/lista';
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {
 
@@ -23,12 +23,15 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
   const { data: data2, refetch: refetch2 } = useQuery({ queryKey: ["pokemon", "infoMas", namePokemon], queryFn: async () => await infoMas(data1.name) })
   const { data: data3, refetch: refetch3 } = useQuery({ queryKey: ["pokemon", "evolucion", namePokemon], queryFn: async () => await evolucion(data1.evolution_chain.url) })
 
+
+  
+
   return (
     <>
 
-      {isLoading && <h3>Cargando...</h3>}
-
-      {data1 && data2 && data3 && !isLoading && (
+      
+      {console.log(data1)}
+      {data1 && data2 && data3 &&!isLoading && (
         <div>
           <h3>Nº #{data1.id}</h3>
           <img src={data2.sprites.front_default} />
@@ -47,7 +50,7 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
         </div>
       )}
 
-      {isError && <h3>Ha habido un error...{error.message}</h3>}
+      {/* <Evoluciones nombre={data1.evolution_chain.url}/> */}
     </>
   )
 }

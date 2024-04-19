@@ -19,11 +19,10 @@ import {
 function App() {
 
   const [urlDetalle, setUrlDetalle] = useState("")
-  const [namePokemon, setName] = useState("")
+  const [namePokemon, setNamePokemon] = useState("")
 
   const handleClickPokemon = ({pokemon}) => {
-    console.log(pokemon)
-    setName(pokemon.name)
+    setNamePokemon(pokemon.name)
     setUrlDetalle(pokemon.url)
   }
 
