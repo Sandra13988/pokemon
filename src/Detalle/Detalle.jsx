@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import { usePokemonInfoQuery } from '../Queries/Pokemon/info';
-import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas';
-import { usePokemonEvolucion } from '../Queries/Pokemon/evolucion';
+import { usePokemonInfoQuery } from '../Queries/Pokemon/info'; // Query que saca la info basica de un pokemon 
+import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas'; // Query que saca info completa de un pokemon
+import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva'; // Query para sacar la cadena evolutiva de un pokemon
+import { Evoluciones } from './Evoluciones' //componente que imprime el banner de las evoluciones
 
-import { listar } from '../Queries/Pokemon/lista';
-// import { Evoluciones } from './Evoluciones';
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {
 
@@ -32,7 +31,7 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
     <>
 
       
-      {console.log(data1)}
+      {console.log(data3)}
       {data1 && data2 && data3 &&!isLoading && (
         <div>
           <h3>Nº #{data1.id}</h3>
@@ -52,7 +51,7 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
         </div>
       )}
 
-      {/* <Evoluciones nombre={data1.evolution_chain.url}/> */}
+      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name}/>
     </>
   )
 }
