@@ -5,26 +5,35 @@ import { Carrusel } from './Carrusel/Carrusel'
 import { Carrusel2 } from './Carrusel/Carrusel2'
 import { Listar } from './Listar/Listar'
 import { Detalle } from './Detalle/Detalle'
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { Sidebar } from './Sidebar'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 // const queryClient = new QueryClient()
 function App() {
 
-  const [urlDetalle, setUrlDetalle] = useState("")
+  const [id, setId] = useState("")
   const [namePokemon, setNamePokemon] = useState("")
 
+  //Entra un pokemon y hay que sacarle el id y nombre
+  //Si id no existe, se extrae de la URL
   const handleClickPokemon = ({pokemon}) => {
+    if(pokemon.id){
+      setId(pokemon.id)
+    }else{
+      setId(sacarIdDeUrl(pokemon.url))
+    }
+    
     setNamePokemon(pokemon.name)
-    setUrlDetalle(pokemon.url)
+    
   }
+
+  const sacarIdDeUrl = (url) =>{
+    const partes = url.split("/");
+    const ultimoDigito = partes[partes.length - 2];
+    return ultimoDigito
+  }
+ 
 
   return (
 
@@ -34,7 +43,8 @@ function App() {
         {/* <Carrusel/> */}
         {/* <Carrusel2/> */}
         <Listar handleClickPokemon={handleClickPokemon} />
-        {namePokemon && <Detalle namePokemon={namePokemon} urlDetalle={urlDetalle} />}
+        {namePokemon && <Detalle namePokemon={namePokemon} id={id} />}
+        <Sidebar handleClickPokemon={handleClickPokemon} />
         {/* <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider> */}
     </>

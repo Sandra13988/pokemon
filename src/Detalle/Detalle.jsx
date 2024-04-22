@@ -4,16 +4,15 @@ import { usePokemonInfoQuery } from '../Queries/Pokemon/info';
 import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas';
 import { usePokemonEvolucion } from '../Queries/Pokemon/evolucion';
 
-import { listar } from '../Queries/Pokemon/lista';
 // import { Evoluciones } from './Evoluciones';
 
-export const Detalle = ({ namePokemon, urlDetalle }) => {
+export const Detalle = ({ namePokemon, id }) => {
 
 
 
  //CREO QUE COGE LOS DATOS TARDE Y NO LOS CONSIGUE PASAR COMO PROP A LA SEGUNDA QUERY
-  const { isLoading, isError, data: data1, error} = usePokemonInfoQuery(namePokemon, urlDetalle)
-  const { data: data2 } = usePokemonInfoMasQuery(data1 && data1.name)
+  const { isLoading, isError, data: data1, error} = usePokemonInfoQuery(id && namePokemon, id)
+  const { data: data2 } = usePokemonInfoMasQuery(id && namePokemon, id)
   const { data: data3 } = usePokemonEvolucion( namePokemon, data1 && data1.evolution_chain.url)
   
   
