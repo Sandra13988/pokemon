@@ -35,6 +35,7 @@ function App() {
   }
  
 
+
   return (
 
     <>
@@ -43,12 +44,13 @@ function App() {
         {/* <Carrusel/> */}
         {/* <Carrusel2/> */}
         <Listar handleClickPokemon={handleClickPokemon} />
+
         {namePokemon && <Detalle namePokemon={namePokemon} id={id} />}
         <Sidebar handleClickPokemon={handleClickPokemon} />
+
         {/* <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider> */}
     </>
-
   )
 }
 
