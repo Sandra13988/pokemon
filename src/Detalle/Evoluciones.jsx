@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas'; //Foto 
 import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva';
 import { usePokemonEvoluciones } from '../Queries/Pokemon/evoluciones';
-
+import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
 export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
@@ -63,26 +63,31 @@ export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
         return <h3>Ha habido un error...{error.message}</h3>
     }
 
+    const sacarIdDeUrl = (url) =>{
+        const partes = url.split("/");
+        const ultimoDigito = partes[partes.length - 2];
+        return ultimoDigito
+      }
     
     return (
         <>
-        
+      
         {!isLoading && (
         <h2>Evoluciones</h2>,
         <div id="contenedor">
-            {primeraEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion )}>
+            {primeraEvolucion && <Link to={`/pokemon/${primeraEvolucion.id}`}><div className="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion )}>
                 {console.log(primeraEvolucion.id)}
                 <img src={primeraEvolucion.sprites.front_default}/>
                 {primeraEvolucion.name.toUpperCase()}
-            </div>}
-            {segundaEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( segundaEvolucion )}> 
+            </div></Link>}
+            {segundaEvolucion && <Link to={`/pokemon/${segundaEvolucion.id}`}><div className="evolucionPokemon" onClick={() => handleClickPokemon( segundaEvolucion )}> 
                 <img src={segundaEvolucion.sprites.front_default}/>
                 {segundaEvolucion.name.toUpperCase()}
-            </div>}
-            {terceraEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( terceraEvolucion )}>
+            </div></Link>}
+            {terceraEvolucion && <Link to={`/pokemon/${terceraEvolucion.id}`}><div className="evolucionPokemon" onClick={() => handleClickPokemon( terceraEvolucion )}>
                 <img src={terceraEvolucion.sprites.front_default}/>
                 {terceraEvolucion.name.toUpperCase()}
-            </div>}
+            </div></Link>}
         </div>
       )}
         </>

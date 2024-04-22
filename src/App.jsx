@@ -6,6 +6,7 @@ import { Carrusel2 } from './Carrusel/Carrusel2'
 import { Listar } from './Listar/Listar'
 import { Detalle } from './Detalle/Detalle'
 import { Sidebar } from './Sidebar'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
@@ -41,17 +42,28 @@ function App() {
   return (
 
     <>
+     <Routes>
       {/* <QueryClientProvider client={queryClient}> */}
         {/* <Buscador guardarPokemon={guardarPokemon}/> */}
         {/* <Carrusel/> */}
         {/* <Carrusel2/> */}
-        <Listar handleClickPokemon={handleClickPokemon} />
+        <Route path="/" element={<Listar 
+          handleClickPokemon={handleClickPokemon} />}
+        />
+       
 
-        {namePokemon && <Detalle namePokemon={namePokemon} id={id} handleClickPokemon={handleClickPokemon}/>}
-        <Sidebar handleClickPokemon={handleClickPokemon} />
+        <Route path="/pokemon/:id" element={<Detalle 
+          namePokemon={namePokemon} 
+          id={id} handleClickPokemon={handleClickPokemon}/>}
+        />
+
+        
+       
 
         {/* <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider> */}
+      </Routes>
+      <Sidebar handleClickPokemon={handleClickPokemon} />
     </>
   )
 }

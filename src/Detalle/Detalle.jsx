@@ -4,19 +4,18 @@ import { usePokemonInfoQuery } from '../Queries/Pokemon/info'; // Query que saca
 import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas'; // Query que saca info completa de un pokemon
 import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva'; // Query para sacar la cadena evolutiva de un pokemon
 import { Evoluciones } from './Evoluciones' //componente que imprime el banner de las evoluciones
+import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
 
 export const Detalle = ({ namePokemon, id, handleClickPokemon }) => {
 
 
-  const [infoEvolucion, setInfoEvolucion] = useState({})
-
  //CREO QUE COGE LOS DATOS TARDE Y NO LOS CONSIGUE PASAR COMO PROP A LA SEGUNDA QUERY
   const { isLoading, isError, data: data1, error} = usePokemonInfoQuery(id && namePokemon, id)
   const { data: data2 } = usePokemonInfoMasQuery(id && namePokemon, id)
-  const { data: data3 } = usePokemonEvolucion( namePokemon, data1 && data1.evolution_chain.url)
-  
+ 
+  const { ID } = useParams(); 
   
 
   // const url_evolucion = data1.evolution_chain.url
@@ -32,9 +31,7 @@ export const Detalle = ({ namePokemon, id, handleClickPokemon }) => {
   return (
     <>
 
-      
-      {console.log(data3)}
-      {data1 && data2 && data3 &&!isLoading && (
+      {data1 && data2  &&!isLoading && (
         <div>
           <h3>Nº #{data1.id}</h3>
           <img src={data2.sprites.front_default} />

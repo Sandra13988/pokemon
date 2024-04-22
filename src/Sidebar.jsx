@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { usePokemonTipos } from './Queries/Pokemon/tipo'
 import { usePokemonListarMismoTipo } from './Queries/Pokemon/pokemonTipo'
+import { Routes, Route, Link } from 'react-router-dom'
 
 
 export const Sidebar = ({ handleClickPokemon }) => {
@@ -18,8 +19,13 @@ export const Sidebar = ({ handleClickPokemon }) => {
 
     console.log(data2)
 
-
-    // const {data: data3} = 
+    const sacarIdDeUrl = (url) =>{
+      const partes = url.split("/");
+      const ultimoDigito = partes[partes.length - 2];
+      return ultimoDigito
+    }
+   
+ 
   return (
     <>
 {isLoading && <h3>Cargando...</h3>}
@@ -28,6 +34,7 @@ export const Sidebar = ({ handleClickPokemon }) => {
         {data1 && data1.results.map(tipo => {
           return (
             <div key={tipo.name}>
+              {/* AQUI QUIZAS DEBA DE PONER RUTA A DETALLE QUE ES DONDE SE COLOCARÁ EL SIDEBAR? */}
               <a onClick={() => handleClickTipo( tipo.url, tipo.name )}>{tipo.name}</a>
             </div>
           )
@@ -40,7 +47,7 @@ export const Sidebar = ({ handleClickPokemon }) => {
         {data2.pokemon.map(pokemon => {
             return(
             <div key={pokemon.name}>
-                <a onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</a>
+                 <Link to={`/pokemon/${sacarIdDeUrl(pokemon.pokemon.url)}`}><a onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</a></Link>
             </div>
             )     
         })}
