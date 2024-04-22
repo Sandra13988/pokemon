@@ -5,7 +5,7 @@ import { usePokemonEvoluciones } from '../Queries/Pokemon/evoluciones';
 
 
 
-export const Evoluciones = ({ url, nombre }) => {
+export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
 
 
     const { isLoading, isError, error, data: data3 } = usePokemonEvolucion(nombre, url) // sacas cadena evolutiva
@@ -46,10 +46,6 @@ export const Evoluciones = ({ url, nombre }) => {
     const evoluciones = data3 && obtenerEvoluciones(data3) // evoluciones tiene los datos del pokemon que tiene esa evolucion name + url
     console.log(evoluciones)
 
-    //HASTA AQUI FUNCIONA 
-
-  
-
     const { data: primeraEvolucion } = usePokemonEvoluciones("Primera evolucion", evoluciones && evoluciones[0] &&  evoluciones[0].namePokemon)
     const { data: segundaEvolucion } = usePokemonEvoluciones("Segunda evolucion", evoluciones && evoluciones[1] &&  evoluciones[1].namePokemon)
     const { data: terceraEvolucion } = usePokemonEvoluciones("Tercera evolucion", evoluciones && evoluciones[2] &&  evoluciones[2].namePokemon)
@@ -72,18 +68,24 @@ export const Evoluciones = ({ url, nombre }) => {
         <>
         
         {!isLoading && (
-        <h2>{"Evoluciones"}</h2>,
+        <h2>Evoluciones</h2>,
         <div id="contenedor">
-            {primeraEvolucion &&<div>{primeraEvolucion.name}</div>}
-            {segundaEvolucion &&<div>{segundaEvolucion.name}</div>}
-            {terceraEvolucion &&<div>{terceraEvolucion.name}</div>}
+            {primeraEvolucion &&<div class="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion.species )}>
+                {console.log(primeraEvolucion.species)}
+                <img src={primeraEvolucion.sprites.front_default}/>
+                {primeraEvolucion.name.toUpperCase()}
+            </div>}
+            {segundaEvolucion &&<div class="evolucionPokemon"> 
+                <img src={segundaEvolucion.sprites.front_default}/>
+                {segundaEvolucion.name.toUpperCase()}
+            </div>}
+            {terceraEvolucion &&<div class="evolucionPokemon">
+                <img src={terceraEvolucion.sprites.front_default}/>
+                {terceraEvolucion.name.toUpperCase()}
+            </div>}
         </div>
       )}
-
-
-
-            
-
         </>
     )
 }
+

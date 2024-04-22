@@ -21,10 +21,14 @@ function App() {
   const [urlDetalle, setUrlDetalle] = useState("")
   const [namePokemon, setNamePokemon] = useState("")
 
-  const handleClickPokemon = ({pokemon}) => {
-    setNamePokemon(pokemon.name)
-    setUrlDetalle(pokemon.url)
+  const handleClickPokemon =  ({pokemon}) => {
+
+      if(pokemon){
+        setNamePokemon(pokemon.name)
+        setUrlDetalle(pokemon.url)
+      }
   }
+
 
   return (
 
@@ -34,11 +38,10 @@ function App() {
         {/* <Carrusel/> */}
         {/* <Carrusel2/> */}
         <Listar handleClickPokemon={handleClickPokemon} />
-        {namePokemon && <Detalle namePokemon={namePokemon} urlDetalle={urlDetalle} />}
+        {namePokemon && <Detalle namePokemon={namePokemon} urlDetalle={urlDetalle} handleClickPokemon={handleClickPokemon}/>}
         {/* <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider> */}
     </>
-
   )
 }
 

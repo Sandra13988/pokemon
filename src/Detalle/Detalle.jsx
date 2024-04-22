@@ -6,9 +6,9 @@ import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva'; // Que
 import { Evoluciones } from './Evoluciones' //componente que imprime el banner de las evoluciones
 
 
-export const Detalle = ({ namePokemon, urlDetalle }) => {
+export const Detalle = ({ namePokemon, urlDetalle, handleClickPokemon }) => {
 
-
+  const [infoEvolucion, setInfoEvolucion] = useState({})
 
  //CREO QUE COGE LOS DATOS TARDE Y NO LOS CONSIGUE PASAR COMO PROP A LA SEGUNDA QUERY
   const { isLoading, isError, data: data1, error} = usePokemonInfoQuery(namePokemon, urlDetalle)
@@ -16,6 +16,7 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
   const { data: data3 } = usePokemonEvolucion( namePokemon, data1 && data1.evolution_chain.url)
   
   
+
 
   // const url_evolucion = data1.evolution_chain.url
 
@@ -51,7 +52,7 @@ export const Detalle = ({ namePokemon, urlDetalle }) => {
         </div>
       )}
 
-      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name}/>
+      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name} handleClickPokemon={handleClickPokemon}/>
     </>
   )
 }
