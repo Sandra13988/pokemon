@@ -7,7 +7,7 @@ import { Evoluciones } from './Evoluciones' //componente que imprime el banner d
 
 
 
-export const Detalle = ({ namePokemon, id }) => {
+export const Detalle = ({ namePokemon, id, handleClickPokemon }) => {
 
 
   const [infoEvolucion, setInfoEvolucion] = useState({})
@@ -53,7 +53,7 @@ export const Detalle = ({ namePokemon, id }) => {
         </div>
       )}
 
-      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name} />
+      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name} handleClickPokemon={handleClickPokemon}/>
     </>
   )
 }

@@ -40,9 +40,9 @@ export const Sidebar = ({ handleClickPokemon }) => {
         {data2.pokemon.map(pokemon => {
             return(
             <div key={pokemon.name}>
-                <a onClick={() => handleClickPokemon( pokemon )}>{pokemon.pokemon.name}</a>
+                <a onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</a>
             </div>
-            )
+            )     
         })}
         {console.log(data2)}
       </div>}
