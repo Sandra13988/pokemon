@@ -21,8 +21,14 @@ function App() {
   const [urlDetalle, setUrlDetalle] = useState("")
   const [namePokemon, setNamePokemon] = useState("")
 
-  const handleClickPokemon =  ({pokemon}) => {
 
+  //PARA IMPRIMIR LA EVOLUCION CUANDO LE HACES CLICK, LO PASA COMO UNDEFINED
+  //CUANDO ESTÁ ENTRANDO EL MISMO TIPO DE OBJETO TANTO DE LA LISTA COMO DE EVOLUCIONES
+  //{name: 'bulbasaur', url: 'https://pokeapi.co/api/v2/pokemon-species/1/'} -> Desde Evoluciones linea 74
+  //{name: 'butterfree', url: 'https://pokeapi.co/api/v2/pokemon-species/12/'} -> Desde APP linea 31
+
+  const handleClickPokemon =  ({pokemon}) => {
+    console.log(pokemon)
       if(pokemon){
         setNamePokemon(pokemon.name)
         setUrlDetalle(pokemon.url)

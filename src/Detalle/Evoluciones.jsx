@@ -70,16 +70,16 @@ export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
         {!isLoading && (
         <h2>Evoluciones</h2>,
         <div id="contenedor">
-            {primeraEvolucion &&<div class="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion.species )}>
+            {primeraEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion.species )}>
                 {console.log(primeraEvolucion.species)}
                 <img src={primeraEvolucion.sprites.front_default}/>
                 {primeraEvolucion.name.toUpperCase()}
             </div>}
-            {segundaEvolucion &&<div class="evolucionPokemon"> 
+            {segundaEvolucion &&<div className="evolucionPokemon"> 
                 <img src={segundaEvolucion.sprites.front_default}/>
                 {segundaEvolucion.name.toUpperCase()}
             </div>}
-            {terceraEvolucion &&<div class="evolucionPokemon">
+            {terceraEvolucion &&<div className="evolucionPokemon">
                 <img src={terceraEvolucion.sprites.front_default}/>
                 {terceraEvolucion.name.toUpperCase()}
             </div>}

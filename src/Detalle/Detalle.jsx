@@ -17,7 +17,6 @@ export const Detalle = ({ namePokemon, urlDetalle, handleClickPokemon }) => {
   
   
 
-
   // const url_evolucion = data1.evolution_chain.url
 
   if(isLoading){
