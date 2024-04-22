@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { listar } from '../Queries/Pokemon/lista';
+import { usePokemonListar } from '../Queries/Pokemon/lista';
 
 export const Listar = ({ handleClickPokemon }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
   const [pagina, setPagina] = useState(1)
 
-  useEffect(() => {
-    listar(url)
-  }, [url])
 
   const handleClickSiguiente = () => {
     setUrl(data.next)
@@ -21,9 +18,9 @@ export const Listar = ({ handleClickPokemon }) => {
   }
 
 
-  
+  const { data, isLoading, isError, error } = usePokemonListar(url, pagina)
 
-  const { data, isLoading, isError, error } = useQuery({ queryKey: ['pokemon', "lista", "pagina",  pagina], queryFn: async () => await listar(url) })
+
 
   console.log(data)
   return (

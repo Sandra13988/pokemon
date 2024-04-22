@@ -4,7 +4,6 @@ import { usePokemonInfoQuery } from '../Queries/Pokemon/info';
 import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas';
 import { usePokemonEvolucion } from '../Queries/Pokemon/evolucion';
 
-import { listar } from '../Queries/Pokemon/lista';
 // import { Evoluciones } from './Evoluciones';
 
 export const Detalle = ({ namePokemon, urlDetalle }) => {

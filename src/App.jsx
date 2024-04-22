@@ -5,13 +5,7 @@ import { Carrusel } from './Carrusel/Carrusel'
 import { Carrusel2 } from './Carrusel/Carrusel2'
 import { Listar } from './Listar/Listar'
 import { Detalle } from './Detalle/Detalle'
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { Sidebar } from './Sidebar'
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
@@ -35,6 +29,7 @@ function App() {
         {/* <Carrusel2/> */}
         <Listar handleClickPokemon={handleClickPokemon} />
         {namePokemon && <Detalle namePokemon={namePokemon} urlDetalle={urlDetalle} />}
+        <Sidebar />
         {/* <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider> */}
     </>

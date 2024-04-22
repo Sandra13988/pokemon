@@ -12,7 +12,8 @@ export function usePokemonInfoQuery  (namePokemon, urlDetalle)  {
  }
 
 
- 
+
+
 
 //  import { useQuery } from "@tanstack/react-query";
 
