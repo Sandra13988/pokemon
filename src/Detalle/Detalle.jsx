@@ -53,7 +53,7 @@ export const Detalle = ({ namePokemon, id }) => {
         </div>
       )}
 
-      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name} handleClickPokemon={handleClickPokemon}/>
+      <Evoluciones url={data1.evolution_chain.url} nombre={data1.name} />
     </>
   )
 }
