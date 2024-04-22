@@ -2,8 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 
 
 
-export  function usePokemonInfoMasQuery (pokemonName, id) {
-    return  useQuery({ queryKey: ["pokemon", "infoMas", pokemonName], queryFn: async () => await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+export  function usePokemonTipos () {
+    return  useQuery({ queryKey: ["pokemon", "tipos"], queryFn: async () => await fetch('https://pokeapi.co/api/v2/type/')
          .then( res => {
            if (!res.ok) throw new Error('Error en la petición')
            const data =  res.json()
