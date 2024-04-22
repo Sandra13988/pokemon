@@ -7,7 +7,7 @@ import { Evoluciones } from './Evoluciones' //componente que imprime el banner d
 
 
 
-export const Detalle = ({ namePokemon, id }) => {
+export const Detalle = ({ namePokemon, id, handleClickPokemon }) => {
 
 
   const [infoEvolucion, setInfoEvolucion] = useState({})
