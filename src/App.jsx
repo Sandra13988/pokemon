@@ -17,10 +17,12 @@ function App() {
 
   //Entra un pokemon y hay que sacarle el id y nombre
   //Si id no existe, se extrae de la URL
-  const handleClickPokemon = ({pokemon}) => {
+  const handleClickPokemon = (pokemon) => {
+    console.log(pokemon.id)
     if(pokemon.id){
       setId(pokemon.id)
     }else{
+      console.log(pokemon.url)
       setId(sacarIdDeUrl(pokemon.url))
     }
     
@@ -45,7 +47,7 @@ function App() {
         {/* <Carrusel2/> */}
         <Listar handleClickPokemon={handleClickPokemon} />
 
-        {namePokemon && <Detalle namePokemon={namePokemon} id={id} />}
+        {namePokemon && <Detalle namePokemon={namePokemon} id={id} handleClickPokemon={handleClickPokemon}/>}
         <Sidebar handleClickPokemon={handleClickPokemon} />
 
         {/* <ReactQueryDevtools initialIsOpen={true} />

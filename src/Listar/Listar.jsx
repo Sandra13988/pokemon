@@ -30,7 +30,7 @@ export const Listar = ({ handleClickPokemon }) => {
         {data && data.results.map(pokemon => {
           return (
             <div key={pokemon.name}>
-              <a onClick={() => handleClickPokemon({ pokemon })}>{pokemon.name}</a>
+              <a onClick={() => handleClickPokemon( pokemon )}>{pokemon.name}</a>
             </div>
           )
         })}
