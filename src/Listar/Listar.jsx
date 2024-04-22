@@ -20,7 +20,7 @@ export const Listar = ({ handleClickPokemon }) => {
 
   const { data, isLoading, isError, error } = usePokemonListar(url, pagina)
 
-
+  
 
   console.log(data)
   return (
