@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas'; //Foto 
-import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva';
-import { usePokemonEvoluciones } from '../Queries/Pokemon/evoluciones';
+import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas'; //Foto 
+import { usePokemonEvolucion } from '../../Queries/Pokemon/cadenaEvolutiva';
+import { usePokemonEvoluciones } from '../../Queries/Pokemon/evoluciones';
 import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
@@ -62,12 +62,6 @@ export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
     if (isError) {
         return <h3>Ha habido un error...{error.message}</h3>
     }
-
-    const sacarIdDeUrl = (url) =>{
-        const partes = url.split("/");
-        const ultimoDigito = partes[partes.length - 2];
-        return ultimoDigito
-      }
     
     return (
         <>
@@ -76,7 +70,6 @@ export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
         <h2>Evoluciones</h2>,
         <div id="contenedor">
             {primeraEvolucion && <Link to={`/pokemon/${primeraEvolucion.id}`}><div className="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion )}>
-                {console.log(primeraEvolucion.id)}
                 <img src={primeraEvolucion.sprites.front_default}/>
                 {primeraEvolucion.name.toUpperCase()}
             </div></Link>}

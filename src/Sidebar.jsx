@@ -43,14 +43,13 @@ export const Sidebar = ({ handleClickPokemon }) => {
       
       {data2 && <div>
         {"Pokemon de tipo "+ tipo}
-        
+        <ul>
         {data2.pokemon.map(pokemon => {
             return(
-            <div key={pokemon.name}>
-                 <Link to={`/pokemon/${sacarIdDeUrl(pokemon.pokemon.url)}`}><a onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</a></Link>
-            </div>
+                <Link to={`/pokemon/${sacarIdDeUrl(pokemon.pokemon.url)}`}><li key={pokemon.name} onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</li></Link>
             )     
         })}
+        </ul>
         {console.log(data2)}
       </div>}
 

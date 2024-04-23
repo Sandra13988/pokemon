@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from "@tanstack/react-query"
-import { usePokemonListar } from '../Queries/Pokemon/lista';
-import { Routes, Route, Link, useParams } from 'react-router-dom'
+import { usePokemonListar } from '../../Queries/Pokemon/lista';
+import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom'
 
 export const Listar = ({ handleClickPokemon }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
   const [pagina, setPagina] = useState(1)
-  // const { ultimoDigito } = useParams(); 
+  const navegar = useNavigate()
+
 
   const handleClickSiguiente = () => {
     setUrl(data.next)
@@ -26,8 +27,7 @@ export const Listar = ({ handleClickPokemon }) => {
     const ultimoDigito = partes[partes.length - 2];
     return ultimoDigito
   }
-  
- 
+
 
   console.log(data)
   return (
@@ -38,7 +38,7 @@ export const Listar = ({ handleClickPokemon }) => {
           return (
             <div key={pokemon.name}>
               
-              <Link to={`/pokemon/${sacarIdDeUrl(pokemon.url)}`}><a onClick={() => handleClickPokemon( pokemon )}>{pokemon.name}</a></Link>
+              <Link to={`/pokemon/${sacarIdDeUrl(pokemon.url)}`}><a onClick={() => navegar(`/pokemon/${sacarIdDeUrl(pokemon.url)}`)}>{pokemon.name}</a></Link>
             </div>
           )
         })}
