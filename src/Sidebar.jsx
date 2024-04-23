@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react'
 import { usePokemonTipos } from './Queries/Pokemon/tipo'
 import { usePokemonListarMismoTipo } from './Queries/Pokemon/pokemonTipo'
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 
 
-export const Sidebar = ({ handleClickPokemon }) => {
+export const Sidebar = () => {
     const [urlTipo, setUrlTipo] = useState("")
     const [tipo, setTipo] = useState("")
+    const navegar = useNavigate()
 
-    const {isLoading, isError, error, data: data1} = usePokemonTipos()
-    console.log(data1)
+    const {isLoading, isError, error, data: tipoPokemon} = usePokemonTipos()
+    console.log(tipoPokemon)
  
     const handleClickTipo = (url, tipo) =>{
         setUrlTipo(url)
         setTipo(tipo)
     }
-    const {data: data2} = usePokemonListarMismoTipo(urlTipo, tipo) 
+    const {data: mismoTipo} = usePokemonListarMismoTipo(urlTipo, tipo) 
 
-    console.log(data2)
+    console.log(mismoTipo)
 
     const sacarIdDeUrl = (url) =>{
       const partes = url.split("/");
@@ -25,13 +26,21 @@ export const Sidebar = ({ handleClickPokemon }) => {
       return ultimoDigito
     }
    
- 
+    if(isLoading ){
+      return <h3>Cargando...</h3>
+    }
+  
+    if (isError || !tipoPokemon ){
+      return <h3>Ha habido un error...{isError.message || isError.message}</h3>
+    }
+  
+
   return (
     <>
-{isLoading && <h3>Cargando...</h3>}
+
       <ul>
         <h2>TIPOS</h2>
-        {data1 && data1.results.map(tipo => {
+        {tipoPokemon.results.map(tipo => {
           return (
             <div key={tipo.name}>
               {/* AQUI QUIZAS DEBA DE PONER RUTA A DETALLE QUE ES DONDE SE COLOCARÁ EL SIDEBAR? */}
@@ -41,22 +50,19 @@ export const Sidebar = ({ handleClickPokemon }) => {
         })}
       </ul>
       
-      {data2 && <div>
+      {mismoTipo && <div>
         {"Pokemon de tipo "+ tipo}
         <ul>
-        {data2.pokemon.map(pokemon => {
+        {mismoTipo.pokemon.map(pokemon => {
             return(
-                <Link to={`/pokemon/${sacarIdDeUrl(pokemon.pokemon.url)}`}><li key={pokemon.name} onClick={() => handleClickPokemon( pokemon.pokemon )}>{pokemon.pokemon.name}</li></Link>
+                <Link to={ `/pokemon/${sacarIdDeUrl(pokemon.pokemon.url)}` }><li key={ pokemon.name }>{pokemon.pokemon.name}</li></Link>
             )     
         })}
         </ul>
-        {console.log(data2)}
+ 
       </div>}
 
-      
-      
-
-      {isError && <h3>Ha habido un error con la lista...{error.message}</h3>}
+    
 
     </>
   )

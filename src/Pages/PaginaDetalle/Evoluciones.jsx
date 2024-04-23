@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react'
-import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas'; //Foto 
+
 import { usePokemonEvolucion } from '../../Queries/Pokemon/cadenaEvolutiva';
 import { usePokemonEvoluciones } from '../../Queries/Pokemon/evoluciones';
-import { useNavigate, Link, useParams } from 'react-router-dom'
-import { MostrarEvoluciones } from './MostrarEvoluciones';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Evoluciones = ({ url, nombre }) => {
-
+    const navegar = useNavigate()
 
     const { isLoading, isError, error, data: data3 } = usePokemonEvolucion(nombre, url) // sacas cadena evolutiva
 
@@ -65,7 +63,25 @@ export const Evoluciones = ({ url, nombre }) => {
       }
     
     return (
-        MostrarEvoluciones(primeraEvolucion, segundaEvolucion, terceraEvolucion)
+        <>
+
+        <h2>Evoluciones</h2>,
+        <div id="contenedor">
+            {primeraEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${primeraEvolucion.id}`)}>
+                <img src={primeraEvolucion.sprites.front_default}/>
+                {primeraEvolucion.name.toUpperCase()}
+            </div>}
+            {segundaEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${segundaEvolucion.id}`)}> 
+                <img src={segundaEvolucion.sprites.front_default}/>
+                {segundaEvolucion.name.toUpperCase()}
+            </div>}
+            {terceraEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${terceraEvolucion.id}`)}>
+                <img src={terceraEvolucion.sprites.front_default}/>
+                {terceraEvolucion.name.toUpperCase()}
+            </div>}
+        </div>
+
+        </>
     )
 }
 
