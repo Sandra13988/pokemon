@@ -1,6 +1,6 @@
 import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom'
 import { Listar } from '../Pages/PaginaListar/Listar'
-import { Detalle } from '../Pages/PaginaDetalle/MostrarDetalles'
+import { Detalle } from '../Pages/PaginaDetalle/Detalle'
 import { Sidebar } from '../Sidebar'
 
 export function mainNavegation() {

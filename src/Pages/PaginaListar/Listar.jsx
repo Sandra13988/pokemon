@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { usePokemonListar } from '../../Queries/Pokemon/lista';
 import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom'
 
-export const Listar = ({ handleClickPokemon }) => {
+export const Listar = ({  }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
   const [pagina, setPagina] = useState(1)
   const navegar = useNavigate()

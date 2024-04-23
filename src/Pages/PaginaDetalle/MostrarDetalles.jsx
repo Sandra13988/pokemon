@@ -3,37 +3,15 @@ import { useEffect, useState } from 'react'
 import { usePokemonInfoQuery } from '../../Queries/Pokemon/info'; // Query que saca la info basica de un pokemon 
 import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas'; // Query que saca info completa de un pokemon
 import { usePokemonEvolucion } from '../../Queries/Pokemon/cadenaEvolutiva'; // Query para sacar la cadena evolutiva de un pokemon
-import { Evoluciones } from './MostrarEvoluciones' //componente que imprime el banner de las evoluciones
+
 import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
 
-export const Detalle = ({  handleClickPokemon }) => {
-  const { id } = useParams();
-  
-  const { isLoading: isLoadingInfo, isError: isInfoError, data: infoData, error: infoError, refetch: refetchInfo} = usePokemonInfoQuery(id && id)
-  const { isLoading: isLoadingInfoMas, isError: isInfoMasError, data: infoMasData, error: infoMasError, refetch: refetchInfoMas  } = usePokemonInfoMasQuery(id && id)
- 
+export function MostrarDetalles  ( infoData,  infoMasData )  {
 
-  console.log(id)
-  console.log(infoData)
-  console.log(infoMasData)
-  
-
-  // const url_evolucion = data1.evolution_chain.url
-
-  if(isLoadingInfo || isLoadingInfoMas){
-    return <h3>Cargando...</h3>
-  }
-
-  if (isInfoError || isInfoMasError || !infoData || !infoMasData ){
-    return <h3>Ha habido un error...{infoError.message || infoMasError.message}</h3>
-  }
-
-  return (
-    <>
-
-      
+  return(
+      <>
         <div>
           <h3>Nº #{infoData.id}</h3>
           <img src={infoMasData.sprites.front_default} />
@@ -51,8 +29,9 @@ export const Detalle = ({  handleClickPokemon }) => {
             }
         </div>
       
-
-      <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name} handleClickPokemon={handleClickPokemon} />
+{/* 
+      <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name}  /> */}
     </>
   )
 }
+
