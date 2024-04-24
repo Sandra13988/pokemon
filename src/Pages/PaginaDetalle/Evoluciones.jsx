@@ -65,7 +65,7 @@ export const Evoluciones = ({ url, nombre }) => {
     return (
         <>
 
-        <h2>Evoluciones</h2>,
+        <h2>Evoluciones</h2>
         <div id="contenedor">
             {primeraEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${primeraEvolucion.id}`)}>
                 <img src={primeraEvolucion.sprites.front_default}/>
