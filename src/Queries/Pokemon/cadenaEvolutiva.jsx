@@ -2,8 +2,8 @@ import { useQuery} from "@tanstack/react-query"
 
 
 
-export  function usePokemonEvolucion  (namePokemon , url)  {
-  return  useQuery({ queryKey: ["pokemon", "cadenaEvolutiva", namePokemon], queryFn: async () => await fetch(url)
+export  function usePokemonEvolucion  (id , url)  {
+  return  useQuery({ queryKey: ["pokemon", "cadenaEvolutiva", id], queryFn: async () => await fetch(url)
        .then( res => {
          if (!res.ok) throw new Error('Error en la petición')
          const data =  res.json()

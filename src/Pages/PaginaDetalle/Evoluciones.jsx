@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
-import { usePokemonInfoMasQuery } from '../Queries/Pokemon/infoMas'; //Foto 
-import { usePokemonEvolucion } from '../Queries/Pokemon/cadenaEvolutiva';
-import { usePokemonEvoluciones } from '../Queries/Pokemon/evoluciones';
+
+import { usePokemonEvolucion } from '../../Queries/Pokemon/cadenaEvolutiva';
+import { usePokemonEvoluciones } from '../../Queries/Pokemon/evoluciones';
+import { useNavigate } from 'react-router-dom';
 
 
-
-export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
-
+export const Evoluciones = ({ url, nombre }) => {
+    const navegar = useNavigate()
 
     const { isLoading, isError, error, data: data3 } = usePokemonEvolucion(nombre, url) // sacas cadena evolutiva
 
@@ -55,36 +54,33 @@ export const Evoluciones = ({ url, nombre, handleClickPokemon }) => {
     console.log(terceraEvolucion)
 
   
-    if (isLoading) {
+    if(isLoading ){
         return <h3>Cargando...</h3>
-    }
-
-    if (isError) {
-        return <h3>Ha habido un error...{error.message}</h3>
-    }
-
+      }
+    
+      if (isError  || !data3 ){
+        return <h3>Ha habido un error...{infoError.message || infoMasError.message}</h3>
+      }
     
     return (
         <>
-        
-        {!isLoading && (
-        <h2>Evoluciones</h2>,
+
+        <h2>Evoluciones</h2>
         <div id="contenedor">
-            {primeraEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( primeraEvolucion )}>
-                {console.log(primeraEvolucion.id)}
+            {primeraEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${primeraEvolucion.id}`)}>
                 <img src={primeraEvolucion.sprites.front_default}/>
                 {primeraEvolucion.name.toUpperCase()}
             </div>}
-            {segundaEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( segundaEvolucion )}> 
+            {segundaEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${segundaEvolucion.id}`)}> 
                 <img src={segundaEvolucion.sprites.front_default}/>
                 {segundaEvolucion.name.toUpperCase()}
             </div>}
-            {terceraEvolucion &&<div className="evolucionPokemon" onClick={() => handleClickPokemon( terceraEvolucion )}>
+            {terceraEvolucion && <div className="evolucionPokemon" onClick={() => navegar(`/pokemon/${terceraEvolucion.id}`)}>
                 <img src={terceraEvolucion.sprites.front_default}/>
                 {terceraEvolucion.name.toUpperCase()}
             </div>}
         </div>
-      )}
+
         </>
     )
 }
