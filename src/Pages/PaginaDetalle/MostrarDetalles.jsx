@@ -9,7 +9,7 @@ import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
 export function MostrarDetalles  ( infoData,  infoMasData )  {
-
+  
   return(
       <>
         <div>
