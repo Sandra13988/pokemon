@@ -2,7 +2,7 @@
 import { usePokemonInfoQuery } from '../../Queries/Pokemon/info'; // Query que saca la info basica de un pokemon 
 import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas'; // Query que saca info completa de un pokemon
 import { Evoluciones } from './Evoluciones' //componente que imprime el banner de las evoluciones
-import { useParams, useNavigate  } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { MostrarDetalles } from './MostrarDetalles'
 import { Imagenes } from './Imagenes';
 import { Stats } from './Stats';
@@ -24,6 +24,10 @@ export const Detalle = ({ }) => {
     const anteriorId = parseInt(id) - 1;
     navigate(`/pokemon/${anteriorId}`);
   };
+
+  const volver = () =>{
+    navigate(`/`);
+  }
   console.log(id)
   console.log(infoData)
   console.log(infoMasData)
@@ -39,6 +43,7 @@ export const Detalle = ({ }) => {
 
   return (
     <>
+      <img src="../../../src/assets/imgbin_pokemon-logo-png.png" alt="" width="300" height="180" />
       <div>
         <button onClick={handleClickAnterior}>Anterior</button>
         <button onClick={handleClickSiguiente}>Siguiente</button>
@@ -48,6 +53,8 @@ export const Detalle = ({ }) => {
       <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name} />
       <Imagenes infoMasData={infoMasData.sprites} />
       <Stats infoMasData={infoMasData.stats} />
+      <br></br>
+      <button onClick={volver}>Volver a la lista</button>
     </>
   )
 }
