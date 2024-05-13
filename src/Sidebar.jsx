@@ -40,6 +40,7 @@ export const Sidebar = () => {
 
       <ul>
         <h2>TIPOS</h2>
+        {console.log(tipoPokemon)}
         {tipoPokemon.results.map(tipo => {
           return (
             <div key={tipo.name}>

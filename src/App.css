@@ -5,57 +5,127 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
+/*LISTADO*/
+.lineaPokemon{
+  display: grid;
+  grid-template-columns: 1fr  1fr 200px  1fr 1fr 1fr;
+  align-items: center;
+  width: 900px;
+  border: 1px solid black;
   
 }
 
-.read-the-docs {
-  color: #888;
+ul li:nth-child(even) {
+  background-color: rgb(241, 192, 192);
+}
+
+ul li:nth-child(odd) {
+  background-color: rgb(241, 240, 236);
+}
+
+.listado{
+  border: 1px solid black;
 }
 
 
-#contenedor{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
 
+/*DETALLES*/
+
+/*Info*/
+.tablaInfo{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid black;
+  background-color: rgb(241, 240, 236);
+}
+
+.nombrePokemon{
+  grid-column: span 2;
+  border: 1px solid black;
+  margin-top: 0;
+  background-color: rgb(241, 192, 192);
+}
+
+
+.descripcionPokemon{
+  padding: 40px;
+}
+/*Evoluciones*/
+.tablaEvoluciones{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid black;
 }
 
 .evolucionPokemon{
   display: flex;
-  flex-direction: column;
-  width: 100px;
+  justify-items: center;
+  
+}
+
+
+.nombresEvoluciones{
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  background-color: rgb(241, 192, 192);
+}
+
+.imagenesEvoluciones{
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  background-color: rgb(241, 240, 236);
 }
 
 li{
   list-style: none;
 }
+
+
+/*Imagenes*/
+.stats{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.titulos{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid black;
+  background-color: rgb(241, 192, 192);
+}
+
+.posicion, .imagenesPosicion{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  border: 1px solid black;
+  
+}
+.imagenesPosicion{
+  background-color: rgb(241, 240, 236);
+}
+
+/*Stats*/
+
+.statsTitulos{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid black;
+  background-color: rgb(241, 192, 192);
+  
+}
+
+.statsNumeros{
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border: 1px solid black;
+  background-color: rgb(241, 240, 236);
+  
+}
+

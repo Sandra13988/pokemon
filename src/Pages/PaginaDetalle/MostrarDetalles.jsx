@@ -1,36 +1,58 @@
-import { useEffect, useState } from 'react'
-
-import { usePokemonInfoQuery } from '../../Queries/Pokemon/info'; // Query que saca la info basica de un pokemon 
-import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas'; // Query que saca info completa de un pokemon
-import { usePokemonEvolucion } from '../../Queries/Pokemon/cadenaEvolutiva'; // Query para sacar la cadena evolutiva de un pokemon
-
-import { useNavigate, Link, useParams } from 'react-router-dom'
 
 
 
-export function MostrarDetalles  ( infoData,  infoMasData )  {
-  
-  return(
-      <>
-        <div>
-          <h3>Nº #{infoData.id}</h3>
-          <img src={infoMasData.sprites.front_default} />
-          <h3>Nombre: {infoData.name.toUpperCase()}</h3>
-          <h3>Tipo: {infoMasData.types.map(type => type.type.name).join(", ")}</h3>
-          <h3>Altura: {infoMasData.height/10+" m"}</h3>
-          <h3>Peso: {infoMasData.weight/10+" Kg"}</h3>
 
-          {/* //Filtro de frases en español y solo de una version, en este caso X porque parece que es donde estan todas las descripciones en español*/}
+export const MostrarDetalles = ({ infoData, infoMasData}) => {
+
+  const colocarImagen = (tipo) => {
+    switch (tipo) {
+      case "bug": return '../../../src/assets/icons/bug.ico';
+      case "dark": return "../../../src/assets/icons/dark.ico";
+      case "dragon": return "../../../src/assets/icons/dragon.ico";
+      case "electric": return "../../../src/assets/icons/electric.ico";
+      case "fairy": return "../../../src/assets/icons/fairy.ico";
+      case "fighting": return "../../../src/assets/icons/fighting.ico";
+      case "fire": return "../../../src/assets/icons/fire.ico";
+      case "flying": return "../../../src/assets/icons/flying.ico";
+      case "ghost": return "../../../src/assets/icons/ghost.ico";
+      case "grass": return "../../../src/assets/icons/grass.ico";
+      case "ground": return "../../../src/assets/icons/ground.ico";
+      case "ice": return "../../../src/assets/icons/ice.ico";
+      case "normal": return "../../../src/assets/icons/normal.ico";
+      case "poison": return "../../../src/assets/icons/poison.ico";
+      case "psychic": return "../../../src/assets/icons/psychic.ico";
+      case "rock": return "../../../src/assets/icons/rock.ico";
+      case "steel": return "../../../src/assets/icons/steel.ico";
+      case "water": return "../../../src/assets/icons/water.ico";
+      default: return "";
+    }
+  };
+  return (
+    <>
+
+      <h3># {infoMasData.id}</h3>
+      <img src={infoMasData.sprites.front_default} width="200" height="200" />
+      <h2>Detalles</h2>
+      <div className="tablaInfo" >
+
+        <h2 className="nombrePokemon"> {infoData.name.toUpperCase()}</h2>
+        <div className="infoPokemon">
+          {infoMasData.types.map(type => (
+            <img key={type.type.name} src={colocarImagen(type.type.name)} alt={type.type.name} width="40" height="40" />
+          ))}
+          <h3>Altura: {infoMasData.height / 10 + " m"}</h3>
+          <h3>Peso: {infoMasData.weight / 10 + " Kg"}</h3>
+        </div>
+        {/* //Filtro de frases en español y solo de una version, en este caso X porque parece que es donde estan todas las descripciones en español*/}
+        <div className="descripcionPokemon">
           {infoData.flavor_text_entries
             .filter(frases => frases.language.name === "es" && frases.version.name === "x")
             .map((frase, index) => (
               <h3 key={index}>Descripción: {frase.flavor_text}</h3>
             ))
-            }
+          }
         </div>
-      
-{/* 
-      <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name}  /> */}
+      </div>
     </>
   )
 }

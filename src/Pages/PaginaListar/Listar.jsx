@@ -8,7 +8,7 @@ export const Listar = ({ }) => {
   const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon-species/")
   const [pagina, setPagina] = useState(1)
   const navegar = useNavigate()
-  const [ urls, setUrls] = useState("")
+  const [urls, setUrls] = useState("")
 
 
   const handleClickSiguiente = () => {
@@ -23,7 +23,7 @@ export const Listar = ({ }) => {
 
 
   const { data, isLoading, isError, error } = usePokemonListar(url, pagina)
-  const { isLoading: isLoadingInfoMas, isError: isInfoMasError, data: infoMasData, error: infoMasError  } = usePokemonInfoMasQuery()
+  const { isLoading: isLoadingInfoMas, isError: isInfoMasError , error: infoMasError, data: infoMasData } = usePokemonInfoMasQuery()
 
 
 
@@ -32,15 +32,27 @@ export const Listar = ({ }) => {
     const partes = url.split("/");
     const ultimoDigito = partes[partes.length - 2];
     return ultimoDigito
+    
   }
+  <Link to={`/pokemon/${sacarIdDeUrl(pokemon.species.url)}`}><a onClick={() => navegar(`/pokemon/${sacarIdDeUrl(pokemon.url)}`)}> <img src={pokemon.sprites.front_default} /></a></Link>
 
 
   console.log(data)
+  console.log(infoMasData)
+
+  if(isLoading){
+    <h2>Cargando...</h2>
+  }
+
+  if(isError || !data){
+    <h2>Ha habido un error ....</h2>
+  }
   return (
     <>
-      {isLoading && <h3>Cargando...</h3>}
+   
+
       <ul>
-        {data && data.results.map(pokemon => {
+        {data.results.map(pokemon => {
           return (
             <div key={pokemon.name}>
 
@@ -55,6 +67,9 @@ export const Listar = ({ }) => {
             </div>
           )
         })}
+
+      
+
 
       </ul>
       <button onClick={() => handleClickAtras()}>{"<<<"}</button>
