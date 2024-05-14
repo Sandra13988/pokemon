@@ -3,6 +3,8 @@ import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom';
 import { useContext } from 'react'
 import { Tipos } from '../../contextoTipo';
 import { Filtro } from '../../Filtro';
+import { ScrollToTopButton } from '../../Utiles/BotonSubir';
+import { Busqueda } from './Busqueda';
 
 export function Prueba() {
     const [pokemonList, setPokemonList] = useState([]);
@@ -67,6 +69,7 @@ export function Prueba() {
             .then(data => {
                 setUrl(data.next);
                 setPagina(pagina + 1);
+                window.scrollTo(0, 0);
             })
             .catch(error => {
                 console.error('Error fetching Pokémon list:', error);
@@ -83,6 +86,7 @@ export function Prueba() {
                 }
                 setUrl(data.previous);
                 setPagina(pagina - 1);
+                window.scrollTo(0, 0);
             })
             .catch(error => {
                 console.error('Error fetching Pokémon list:', error);
@@ -93,7 +97,11 @@ export function Prueba() {
         <div>
             <ul>
                 <img src="../../../src/assets/imgbin_pokemon-logo-png.png" alt=""width="500" height="300" />
+                <div className='botonesInicio'>
+                <Busqueda/>
                 <Filtro />
+                </div>
+                
                 <br></br>
                 <div className='listado'>
                     <li>
@@ -159,6 +167,7 @@ export function Prueba() {
             </ul>
             <button onClick={handleClickAtras}>{"<<<"}</button>
             <button onClick={handleClickSiguiente}>{">>>"}</button>
+            <ScrollToTopButton/>
         </div>
     );
 }

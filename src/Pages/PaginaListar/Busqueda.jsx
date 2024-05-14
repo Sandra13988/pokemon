@@ -1,9 +1,19 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Field, ErrorMessage, Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { usePokemonInfoMasQuery } from '../../Queries/Pokemon/infoMas';
+import { useNavigate } from 'react-router-dom'
 
-export const Formulario = ({ recogerDato }) =>{
-  
+export const Busqueda = () =>{
+
+    //const [nombre, setNombre] = useState()
+   // const { isLoading: isLoadingInfoMas, isError: isInfoMasError, data: infoMasData, error: infoMasError } = usePokemonInfoMasQuery(nombre)
+
+    const navegar = useNavigate()
+    
+
+    
+   
   return (
     <>
       <Formik
@@ -18,8 +28,9 @@ export const Formulario = ({ recogerDato }) =>{
             })}
 
             onSubmit={(values, { resetForm }) => {
-                recogerDato(values) 
+         
                 resetForm()
+                navegar(`/pokemon/${values.dato}`);
             }}>
 
             {({
@@ -27,12 +38,12 @@ export const Formulario = ({ recogerDato }) =>{
             }) => (
 
                 <Form>
-                    <div>
+                    <div className='componentesFormulario'>
                         <label htmlFor="dato">Buscar: </label>
                         <Field name="dato" id="dato" type="dato" />
                         <ErrorMessage name="dato" component="div" />
-                    </div>
-                    <div>
+                    
+                   
                     <input
                         type="submit"
                         value={"Buscar"}

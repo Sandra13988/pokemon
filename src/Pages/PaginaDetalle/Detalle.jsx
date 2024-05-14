@@ -7,6 +7,9 @@ import { MostrarDetalles } from './MostrarDetalles'
 import { Imagenes } from './Imagenes';
 import { Stats } from './Stats';
 import { Botones } from './Botones';
+import { ScrollToTopButton } from '../../Utiles/BotonSubir';
+import { PokemonTypeTable } from './DebilYFort';
+
 
 export const Detalle = ({ }) => {
   const { id } = useParams();
@@ -33,6 +36,8 @@ export const Detalle = ({ }) => {
   console.log(infoMasData)
 
 
+
+
   if (isLoadingInfo || isLoadingInfoMas) {
     return <h3>Cargando...</h3>
   }
@@ -40,21 +45,26 @@ export const Detalle = ({ }) => {
   if (isInfoError || isInfoMasError || !infoData || !infoMasData) {
     return <h3>Ha habido un error...{infoError.message || infoMasError.message}</h3>
   }
-
+  const pokemonTypes = infoMasData.types.map(type => type.type.name);
   return (
     <>
+   
       <img src="../../../src/assets/imgbin_pokemon-logo-png.png" alt="" width="300" height="180" />
       <div>
         <button onClick={handleClickAnterior}>Anterior</button>
         <button onClick={handleClickSiguiente}>Siguiente</button>
       </div>
+
+      
       <Botones infoData={infoData} infoMasData={infoMasData} />
       <MostrarDetalles infoData={infoData} infoMasData={infoMasData} />
       <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name} />
       <Imagenes infoMasData={infoMasData.sprites} />
       <Stats infoMasData={infoMasData.stats} />
+      <PokemonTypeTable types={pokemonTypes}/>
       <br></br>
       <button onClick={volver}>Volver a la lista</button>
+      <ScrollToTopButton/>
     </>
   )
 }

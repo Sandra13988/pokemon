@@ -17,6 +17,16 @@
   
 }
 
+.botonesInicio{
+  display: flex;
+  justify-content: space-around;
+}
+
+.componentesFormulario{
+  display: flex;
+
+}
+
 ul li:nth-child(even) {
   background-color: rgb(241, 192, 192);
 }
@@ -121,11 +131,67 @@ li{
   
 }
 
+
 .statsNumeros{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   border: 1px solid black;
   background-color: rgb(241, 240, 236);
   
+}
+
+/*Debilidades y fortalezas*/
+
+.tablaDebFort{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.tablaDebilidades{
+  border: 1px solid black;
+}
+
+.filaDebilidad{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+ 
+}
+
+.filaDebilidad> div{
+  display: flex;
+  align-items: center;
+  height: 50px;
+  justify-content: center;
+  border: 1px solid black;
+  background-color: rgb(241, 240, 236);
+  
+}
+
+header{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border: 1px solid black;
+    background-color: rgb(241, 192, 192);
+    border-bottom: 1px solid black;;
+}
+
+main{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.tablaDebFort > h2{
+  grid-column: span 2;
+  
+}
+
+
+/*GENERAL*/
+.botonTop{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
