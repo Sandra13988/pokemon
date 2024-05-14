@@ -1,7 +1,7 @@
 import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom'
 import { Prueba } from '../Pages/PaginaListar/Prueba'
 import { Detalle } from '../Pages/PaginaDetalle/Detalle'
-import { Sidebar } from '../Sidebar'
+import { NotFound } from '../Pages/NotFound'
 
 
 export function MainNavegation() {
@@ -17,7 +17,7 @@ export function MainNavegation() {
                 <Route path="/" element={<Prueba />} />
 
                 <Route path="/pokemon/:id" element={<Detalle />} />
-
+                <Route path="*" element={<NotFound />} /> 
             </Routes>
             {/* <Sidebar /> */}
         </>

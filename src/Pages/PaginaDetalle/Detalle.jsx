@@ -43,7 +43,8 @@ export const Detalle = ({ }) => {
   }
 
   if (isInfoError || isInfoMasError || !infoData || !infoMasData) {
-    return <h3>Ha habido un error...{infoError.message || infoMasError.message}</h3>
+    navigate(`*`);
+    
   }
   const pokemonTypes = infoMasData.types.map(type => type.type.name);
   return (
