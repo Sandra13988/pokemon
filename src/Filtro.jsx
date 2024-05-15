@@ -50,7 +50,7 @@ export const Filtro = ( ) => {
 
                     <Form>
 
-                        {<div>
+                        {<div className='componentesFormulario'>
                             <label htmlFor="tipo">Tipo</label>
                             <Field as="select" name="tipo" id="tipo" type="tipo">
                                 <option value="">TODOS</option>

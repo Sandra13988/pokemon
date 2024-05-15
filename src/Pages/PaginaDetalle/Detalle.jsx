@@ -6,7 +6,6 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { MostrarDetalles } from './MostrarDetalles'
 import { Imagenes } from './Imagenes';
 import { Stats } from './Stats';
-import { Botones } from './Botones';
 import { ScrollToTopButton } from '../../Utiles/BotonSubir';
 import { PokemonTypeTable } from './DebilYFort';
 
@@ -57,7 +56,7 @@ export const Detalle = ({ }) => {
       </div>
 
       
-      <Botones infoData={infoData} infoMasData={infoMasData} />
+  
       <MostrarDetalles infoData={infoData} infoMasData={infoMasData} />
       <Evoluciones url={infoData.evolution_chain.url} nombre={infoData.name} />
       <Imagenes infoMasData={infoMasData.sprites} />

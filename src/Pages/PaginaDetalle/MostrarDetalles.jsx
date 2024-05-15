@@ -37,11 +37,12 @@ export const MostrarDetalles = ({ infoData, infoMasData}) => {
 
         <h2 className="nombrePokemon"> {infoData.name.toUpperCase()}</h2>
         <div className="infoPokemon">
-          {infoMasData.types.map(type => (
+          <div>{infoMasData.types.map(type => (
             <img key={type.type.name} src={colocarImagen(type.type.name)} alt={type.type.name} width="40" height="40" />
-          ))}
-          <h3>Altura: {infoMasData.height / 10 + " m"}</h3>
-          <h3>Peso: {infoMasData.weight / 10 + " Kg"}</h3>
+          ))}</div>
+          <div><strong>Altura: </strong>{infoMasData.height / 10 + " m"}</div>
+          <div><strong>Peso: </strong>{infoMasData.weight / 10 + " Kg"}</div>
+          <div><strong>Generacion: </strong>{infoData.generation.name}</div>
         </div>
         {/* //Filtro de frases en español y solo de una version, en este caso X porque parece que es donde estan todas las descripciones en español*/}
         <div className="descripcionPokemon">
