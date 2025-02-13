@@ -39,9 +39,11 @@ export const Busqueda = () =>{
 
                 <Form>
                     <div className='componentesFormulario'>
-                        <label htmlFor="dato">Buscar </label>
+                        <label htmlFor="dato" className="buscar">BUSCAR </label>
                         <Field name="dato" id="dato" type="dato" />
-                        <ErrorMessage name="dato" component="div" />
+                        <div className="error-message">
+                            <ErrorMessage name="dato" component="div" />
+                        </div>
                     
                    
                     <input

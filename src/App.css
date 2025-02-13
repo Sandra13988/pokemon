@@ -3,8 +3,12 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  color: black;
 }
 
+h2{
+  color: white;
+}
 
 
 /*LISTADO*/
@@ -115,13 +119,15 @@ li{
   border: 1px solid black;
   background-color: rgb(241, 192, 192);
 }
+.posicion{
+  background-color: antiquewhite;
+}
 
 .posicion, .imagenesPosicion{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   border: 1px solid black;
-  
 }
 .imagenesPosicion{
   background-color: rgb(241, 240, 236);
@@ -201,3 +207,13 @@ main{
   align-items: center;
 }
 
+/* Estilo para la palabra "Buscar" */
+.buscar {
+  color: white;  /* Cambiar color a blanco */
+}
+
+/* Estilo para el mensaje de error */
+.error-message {
+  color: red;    /* Cambiar el color del texto de error a rojo */
+  font-size: 14px; /* Puedes ajustar el tamaño si es necesario */
+}

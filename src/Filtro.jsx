@@ -51,7 +51,7 @@ export const Filtro = ( ) => {
                     <Form>
 
                         {<div className='componentesFormulario'>
-                            <label htmlFor="tipo">Tipo</label>
+                            <label htmlFor="tipo" className="buscar">TIPO</label>
                             <Field as="select" name="tipo" id="tipo" type="tipo">
                                 <option value="">TODOS</option>
                                 {tipoPokemon.results.map(tipo => (
