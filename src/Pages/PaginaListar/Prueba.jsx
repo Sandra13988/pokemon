@@ -96,7 +96,7 @@ export function Prueba() {
     return (
         <div>
             <ul>
-                <img src="../../../src/assets/imgbin_pokemon-logo-png.png" alt=""width="500" height="300" />
+                <img src="src\assets\imgbin_pokemon-logo-png.png" alt=""width="500" height="300" />
                 <div className='botonesInicio'>
                 <Busqueda/>
                 <Filtro />
