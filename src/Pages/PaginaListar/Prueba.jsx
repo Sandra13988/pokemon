@@ -40,24 +40,24 @@ export function Prueba() {
 
     const colocarImagen = (tipo) => {
         switch (tipo) {
-            case "bug": return '/public/icons/bug.ico';
-            case "dark": return "/public/icons/dark.ico";
-            case "dragon": return "/public/icons/dragon.ico";
-            case "electric": return "/public/icons/electric.ico";
-            case "fairy": return "/public/icons/fairy.ico";
-            case "fighting": return "/public/icons/fighting.ico";
-            case "fire": return "/public/icons/fire.ico";
-            case "flying": return "/public/icons/flying.ico";
-            case "ghost": return "/public/icons/ghost.ico";
-            case "grass": return "public/icons/grass.ico";
-            case "ground": return "/public/icons/ground.ico";
-            case "ice": return "/public/icons/ice.ico";
-            case "normal": return "/public/icons/normal.ico";
-            case "poison": return "/public/icons/poison.ico";
-            case "psychic": return "/public/icons/psychic.ico";
-            case "rock": return "/public/icons/rock.ico";
-            case "steel": return "/public/icons/steel.ico";
-            case "water": return "/public/icons/water.ico";
+            case "bug": return '/icons/bug.ico';
+            case "dark": return "/icons/dark.ico";
+            case "dragon": return "/icons/dragon.ico";
+            case "electric": return "/icons/electric.ico";
+            case "fairy": return "/icons/fairy.ico";
+            case "fighting": return "/icons/fighting.ico";
+            case "fire": return "/icons/fire.ico";
+            case "flying": return "/icons/flying.ico";
+            case "ghost": return "/icons/ghost.ico";
+            case "grass": return "icons/grass.ico";
+            case "ground": return "/icons/ground.ico";
+            case "ice": return "/icons/ice.ico";
+            case "normal": return "/icons/normal.ico";
+            case "poison": return "/icons/poison.ico";
+            case "psychic": return "/icons/psychic.ico";
+            case "rock": return "/icons/rock.ico";
+            case "steel": return "/icons/steel.ico";
+            case "water": return "/icons/water.ico";
             default: return "";
         }
     };
