@@ -49,7 +49,7 @@ export const Detalle = ({ }) => {
   return (
     <>
    
-      <img src="/imgbin_pokemon-logo-png.png.png" alt="" width="300" height="180" />
+      <img src="\imgbin_pokemon-logo-png.png" alt="" width="300" height="180" />
       <div>
         <button onClick={handleClickAnterior}>Anterior</button>
         <button onClick={handleClickSiguiente}>Siguiente</button>
