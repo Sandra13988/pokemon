@@ -40,24 +40,24 @@ export function Prueba() {
 
     const colocarImagen = (tipo) => {
         switch (tipo) {
-            case "bug": return '../../../src/assets/icons/bug.ico';
-            case "dark": return "../../../src/assets/icons/dark.ico";
-            case "dragon": return "../../../src/assets/icons/dragon.ico";
-            case "electric": return "../../../src/assets/icons/electric.ico";
-            case "fairy": return "../../../src/assets/icons/fairy.ico";
-            case "fighting": return "../../../src/assets/icons/fighting.ico";
-            case "fire": return "../../../src/assets/icons/fire.ico";
-            case "flying": return "../../../src/assets/icons/flying.ico";
-            case "ghost": return "../../../src/assets/icons/ghost.ico";
-            case "grass": return "../../../src/assets/icons/grass.ico";
-            case "ground": return "../../../src/assets/icons/ground.ico";
-            case "ice": return "../../../src/assets/icons/ice.ico";
-            case "normal": return "../../../src/assets/icons/normal.ico";
-            case "poison": return "../../../src/assets/icons/poison.ico";
-            case "psychic": return "../../../src/assets/icons/psychic.ico";
-            case "rock": return "../../../src/assets/icons/rock.ico";
-            case "steel": return "../../../src/assets/icons/steel.ico";
-            case "water": return "../../../src/assets/icons/water.ico";
+            case "bug": return '/public/icons/bug.ico';
+            case "dark": return "/public/icons/dark.ico";
+            case "dragon": return "/public/icons/dragon.ico";
+            case "electric": return "/public/icons/electric.ico";
+            case "fairy": return "/public/icons/fairy.ico";
+            case "fighting": return "/public/icons/fighting.ico";
+            case "fire": return "/public/icons/fire.ico";
+            case "flying": return "/public/icons/flying.ico";
+            case "ghost": return "/public/icons/ghost.ico";
+            case "grass": return "public/icons/grass.ico";
+            case "ground": return "/public/icons/ground.ico";
+            case "ice": return "/public/icons/ice.ico";
+            case "normal": return "/public/icons/normal.ico";
+            case "poison": return "/public/icons/poison.ico";
+            case "psychic": return "/public/icons/psychic.ico";
+            case "rock": return "/public/icons/rock.ico";
+            case "steel": return "/public/icons/steel.ico";
+            case "water": return "/public/icons/water.ico";
             default: return "";
         }
     };
@@ -96,7 +96,7 @@ export function Prueba() {
     return (
         <div>
             <ul>
-                <img src="src\assets\imgbin_pokemon-logo-png.png" alt=""width="500" height="300" />
+                <img src="/public/imgbin_pokemon-logo-png.png" alt=""width="500" height="300" />
                 <div className='botonesInicio'>
                 <Busqueda/>
                 <Filtro />
