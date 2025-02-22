@@ -14,7 +14,7 @@ Una Pokédex interactiva creada con **React** y **React Query**, que obtiene dat
 
 - ⚛️ **React** → Para la interfaz de usuario.  
 - ⚡ **React Query** → Para el manejo eficiente de datos en caché.  
-- 🎨 **CSS / Tailwind (opcional)** → Para el diseño.  
+- 🎨 **CSS** → Para el diseño.  
 - 🔥 **PokéAPI** → Fuente de datos de los Pokémon.  
 
 ## 🚀 Instalación y uso
